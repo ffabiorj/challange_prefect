@@ -5,12 +5,13 @@ import time
 
 URL = "https://rickandmortyapi.com/api/"
 
+
 @task(retries=2, retry_delay_seconds=1)
 def get_character(name: str) -> dict:
     """Get info about a character"""
     url = f"{URL}character/?name={name}"
     # simulate a task that rondomly fails due to a timeout
-    time_sleep = random.choice([1,3])
+    time_sleep = random.choice([1, 3])
     if time_sleep > 2:
         raise Warning("Simulate task failure due to timeout")
     response = httpx.get(url)
